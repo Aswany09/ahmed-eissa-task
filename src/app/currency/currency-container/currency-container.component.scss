@@ -1,0 +1,87 @@
+.currency-container{
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .converter{
+        display: flex;
+        background-color: #f1f1f1;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: center;
+        }
+        /* Hide the arrow for input of type number */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+
+        .left-section {
+            flex: 30%;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-section {
+            flex: 70%;
+            margin-left: 20px;
+            .currencyForm{
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                .selection{
+                    flex: 1;
+                }
+            }
+            .btn-submit{
+                margin-top: 20px;
+            }
+            .result-converter{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 20px;
+                .result-amount{
+                    font-weight: 500;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+        .info-bg{
+            background-color: #fff;
+            border: 1px solid #b5b5b5;
+            padding: 5px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

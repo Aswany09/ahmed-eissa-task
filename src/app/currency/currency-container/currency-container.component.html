@@ -1,0 +1,82 @@
+<div class="currency-container">
+    <div class="header">
+      <!-- {{currentState}} -->
+        <h3>Currency Exchanger</h3>
+        <button class="btn btn-primary"
+          *ngIf="currentState == currencyState.details"
+        (click)="currentState = currencyState.converter">Back To Home</button>
+    </div>
+
+    <div *ngIf="LatestExchange$ | async as LatestExchange">
+      <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+      <div class="converter">
+          <div class="left-section">
+              <div class="amount">
+                  <label for="amount">Amount</label>
+                  <input type="number" id="amount" formControlName="amount" min="1">
+              </div>
+              <div class="current-selection-status info-bg">
+                {{ currencyForm.get('fromCurrency')?.value }} {{fromCurrencySelected | number:'1.0-2'}}
+                =
+                {{ currencyForm.get('toCurrency')?.value }} {{toCurrencySelected | number:'1.0-2' }}
+              </div>
+            </div>
+            <div class="right-section">
+
+                  <div class="currencyForm">
+                    <div class="selection section-from">
+                      <label for="fromCurrency">From</label>
+                      <select id="fromCurrency" formControlName="fromCurrency">
+                        <ng-container *ngFor="let item of LatestExchange.rates | keyvalue">
+                            <option [value]="item.key">{{item.key}}</option>
+                         </ng-container>
+                      </select>
+                    </div>
+
+                    <div class="selection section-to">
+                      <label for="toCurrency">To</label>
+                      <select id="toCurrency" formControlName="toCurrency">
+                        <ng-container *ngFor="let item of LatestExchange.rates | keyvalue">
+                          <option [value]="item.key">{{item.key}}</option>
+                        </ng-container>
+                      </select>
+                    </div>
+
+                  </div>
+                  <button type="submit"
+                  [disabled]="!currencyForm.valid"
+                  class="btn btn-primary btn-block btn-submit">Convert</button>
+
+
+              <div class="result-converter">
+                  <div class="result-amount info-bg">
+                    {{convertedAmount | number:'1.0-2'}} {{currencyForm.get('toCurrency')?.value}}
+                  </div>
+                  <button class="btn btn-secondary" type="button" (click)="currentState = currencyState.details">currency history</button>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+
+    <div>
+      <div class="chart-container">
+        <ngx-charts-line-chart
+          [view]="[600, 400]"
+          [results]="chartData"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="'Month'"
+          [yAxisLabel]="'Currency Value'"
+        >
+          <ng-template #tooltipTemplate let-model="model">
+            <div class="custom-tooltip">
+              <p>{{ model.name }}</p>
+              <p>{{ model.value | number: '1.2-2' }}</p>
+            </div>
+          </ng-template>
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+
+</div>
